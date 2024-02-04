@@ -1,5 +1,6 @@
-import { Button, Heading, Image, Stack, Text } from "@chakra-ui/react";
+import { Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { PositiveButton, ResetButton } from "./_components/buttons";
 
 type Props = {
   file: Blob;
@@ -34,33 +35,24 @@ export function BinarizedImage({ file }: Props) {
   }
 
   return (
-    <Stack spacing="8">
+    <Stack spacing="6">
       <Stack spacing="6" align="center">
         <Stack spacing="3" textAlign="center">
           <Heading size="xs">Stamp liked image</Heading>
         </Stack>
       </Stack>
-      <Stack
-        spacing="6"
-        height="50vh"
-        position="relative"
-        sx={{
-          ".crop-container": {
-            position: "absolute",
-            inset: 0,
-          },
-        }}
-      >
-        <Stack spacing="4" maxW="full" className="crop-container">
+      <Stack spacing="6">
+        <Stack spacing="4" maxW="full">
           <Image src={imageSource} alt="" />
         </Stack>
       </Stack>
       <Text textStyle="sm" color="fg.muted" textAlign="center">
         Image is never sent to servers, etc.
       </Text>
-      <Button colorScheme="blue" onClick={handleDownload}>
-        Download
-      </Button>
+      <Flex w="full" justifyContent="center" gap="4">
+        <ResetButton />
+        <PositiveButton text="Download" onClick={handleDownload} />
+      </Flex>
     </Stack>
   );
 }

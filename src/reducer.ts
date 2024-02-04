@@ -4,7 +4,7 @@ import { State } from "./state";
 export type ReducerAction =
   | {
       type: "input";
-      payload: File;
+      payload: Blob;
     }
   | {
       type: "crop";

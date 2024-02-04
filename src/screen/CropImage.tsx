@@ -1,11 +1,12 @@
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Cropper from "react-easy-crop";
 import { useStateCtx } from "../use-context";
 import { getCroppedImg } from "../lib";
+import { PositiveButton, ResetButton } from "./_components/buttons";
 
 type Props = {
-  file: File;
+  file: Blob;
 };
 
 export function CropImage({ file }: Props) {
@@ -59,7 +60,7 @@ export function CropImage({ file }: Props) {
   };
 
   return (
-    <Stack spacing="8">
+    <Stack spacing="6">
       <Stack spacing="6" align="center">
         <Stack spacing="3" textAlign="center">
           <Heading size="xs">Crop your image</Heading>
@@ -85,7 +86,7 @@ export function CropImage({ file }: Props) {
             crop={crop}
             zoom={zoom}
             aspect={1}
-            restrictPosition={false}
+            // restrictPosition={false}
             cropShape="round"
             onCropChange={(crop) => setCrop(crop)}
             onCropComplete={(_, croppedAreaPixels) => {
@@ -98,13 +99,10 @@ export function CropImage({ file }: Props) {
       <Text textStyle="sm" color="fg.muted" textAlign="center">
         Image is never sent to servers, etc.
       </Text>
-      <Button
-        colorScheme="blue"
-        onClick={handleSubmit}
-        isDisabled={croppedAreaPixels == null}
-      >
-        Submit
-      </Button>
+      <Flex w="full" justifyContent="center" gap="4">
+        <ResetButton />
+        <PositiveButton text="Submit"  onClick={handleSubmit} isDisabled={croppedAreaPixels == null} />
+      </Flex>
     </Stack>
   );
 }

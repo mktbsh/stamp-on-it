@@ -4,11 +4,11 @@ export type State =
     }
   | {
       seen: "crop";
-      original: File;
+      original: Blob;
     }
   | {
       seen: "binarized";
-      original: File;
+      original: Blob;
       processed: Blob;
       croppedAreaPixels: {
         width: number;
