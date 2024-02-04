@@ -11,8 +11,10 @@ export function App() {
     <Box
       w="full"
       h="100vh"
+      overflow="hidden"
       bgGradient={{ sm: "linear(to-r, blue.600, blue.400)" }}
-      py={{ base: "12", md: "24" }}
+      display="grid"
+      placeItems="center"
     >
       <Container
         maxW="lg"
@@ -21,6 +23,7 @@ export function App() {
         bg={{ base: "transparent", sm: "white" }}
         boxShadow={{ base: "none", sm: "xl" }}
         borderRadius={{ base: "none", sm: "xl" }}
+        maxH="90vh"
       >
         {state.seen === "initial" && <SelectImage />}
         {state.seen === "crop" && <CropImage file={state.original} />}

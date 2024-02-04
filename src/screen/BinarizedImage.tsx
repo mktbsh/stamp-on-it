@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Heading,
   Image,
@@ -6,7 +7,6 @@ import {
   InputGroup,
   InputRightAddon,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { PositiveButton, ResetButton } from "./_components/buttons";
@@ -65,16 +65,23 @@ export function BinarizedImage({ file }: Props) {
       </Stack>
       <Stack spacing="6">
         <Stack spacing="4" maxW="full">
-          <Image src={state.image} alt="" />
+          <Box h="300px" w="full">
+            <Image
+              src={state.image}
+              alt=""
+              w="auto"
+              h="full"
+              mx="auto"
+              objectFit="cover"
+            />
+          </Box>
           <InputGroup>
             <Input ref={inputRef} type="text" placeholder={state.filename} />
             <InputRightAddon>.png</InputRightAddon>
           </InputGroup>
         </Stack>
       </Stack>
-      <Text textStyle="sm" color="fg.muted" textAlign="center">
-        Image is never sent to servers, etc.
-      </Text>
+
       <Flex w="full" justifyContent="center" gap="4">
         <ResetButton />
         <PositiveButton text="Download" onClick={handleDownload} />
