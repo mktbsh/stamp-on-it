@@ -3112,7 +3112,7 @@ packages:
       '@babel/types': 7.23.9
       '@rollup/pluginutils': 5.1.0
       kleur: 4.1.5
-      undici: 6.6.0
+      undici: 6.6.2
       unplugin: 1.6.0
     transitivePeerDependencies:
       - rollup
@@ -3597,8 +3597,8 @@ packages:
     hasBin: true
     dev: true
 
-  /undici@6.6.0:
-    resolution: {integrity: sha512-p8VvLAgnx6g9pydV0GG/kciSx3ZCq5PLeEU4yefjoZCc1HSeiMxbrFzYIZlgSMrX3l0CoTJ37C6edu13acE40A==}
+  /undici@6.6.2:
+    resolution: {integrity: sha512-vSqvUE5skSxQJ5sztTZ/CdeJb1Wq0Hf44hlYMciqHghvz+K88U0l7D6u1VsndoFgskDcnU+nG3gYmMzJVzd9Qg==}
     engines: {node: '>=18.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
