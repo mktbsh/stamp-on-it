@@ -8,14 +8,26 @@ import {
   ChangeEventHandler,
   useState,
 } from "react";
+import { compressImage } from "../mod/compress-image";
 
 export function SelectImage() {
   const { dispatch } = useStateCtx();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const dispatchFile = useCallback(async (image: File) => {
+
+    const compressed = await compressImage({
+      image,
+      maxSizeMB: 2,
+      maxWidthOrHeight: 1080,
+    })
+
+    dispatch({ type: "input", payload: compressed });
+  }, [dispatch]);
+
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
 
       if (e.dataTransfer.items) {
@@ -26,14 +38,14 @@ export function SelectImage() {
           })
           .filter((file): file is File => file !== null);
         if (files.length === 0) return;
-        return dispatch({ type: "input", payload: files[0] });
+        return await dispatchFile(files[0])
       }
 
       const files = Array.from(e.dataTransfer.files);
       if (files.length === 0) return;
-      dispatch({ type: "input", payload: files[0] });
+      await dispatchFile(files[0]);
     },
-    [dispatch]
+    [dispatchFile]
   );
 
   const handleDragOver: DragEventHandler<HTMLDivElement> = useCallback(
@@ -46,11 +58,11 @@ export function SelectImage() {
   }, []);
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
+    async (e) => {
       if (e.target.files === null) return;
-      dispatch({ type: "input", payload: e.target.files[0] });
+      await dispatchFile(e.target.files[0]);
     },
-    [dispatch]
+    [dispatchFile]
   );
 
   const handleClickRandomImage = useCallback(async () => {
@@ -60,13 +72,13 @@ export function SelectImage() {
         `https://picsum.photos/seed/${Date.now()}/1080/1080`
       );
       const blob = await response.blob();
-      dispatch({ type: "input", payload: blob });
+      await dispatchFile(new File([blob], "random.jpg", { type: "image/jpeg" }));
     } catch (e) {
       console.error(e);
     } finally {
       setIsLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatchFile]);
 
   return (
     <Stack spacing="8">

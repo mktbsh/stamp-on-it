@@ -5,7 +5,13 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { App } from "./App";
 import { StateProvider } from "./provider";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const root = document.getElementById("root");
+
+if (!root) {
+  throw new Error("root element not found");
+}
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <ChakraProvider>
       <StateProvider>
